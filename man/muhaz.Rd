@@ -25,7 +25,7 @@ functions are called: pehaz, plot.pehaz, lines.pehaz, print.pehaz.
 \usage{
 muhaz(times, delta, subset, min.time, max.time, bw.grid, bw.pilot,
       bw.smooth, bw.method="local", b.cor="both", n.min.grid=51,
-      n.est.grid=101, kern="epanechnikov")
+      n.est.grid=101, kern="epanechnikov",w)
 }
 \arguments{
 \item{times}{
@@ -107,6 +107,9 @@ Boundary kernel function to be used.  Possible values are:
 "rectangle", "epanechnikov", "biquadratic", "triquadratic".
 Default value is "epanechnikov". Only the first letter needs to be given
 (e.g. kern="b").
+}
+\item{w}{
+A vector of observations' weights used when estimating the hazard function. If w is missing, then the weights are set to one, and a non-weightd version of the hazard function will be calculated.
 }}
 \value{
 Returns an object of class 'muhaz', containing input and output values.
@@ -159,7 +162,7 @@ summary.muhaz, plot.muhaz, lines.muhaz, muhaz.object
 }
 \examples{
 # to compute a locally optimal estimate
-data(cancer, package="survival")
+data(ovarian, package="survival")
 attach(ovarian)
 fit1 <- muhaz(futime, fustat)
 plot(fit1)
