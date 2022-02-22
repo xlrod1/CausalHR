@@ -1,0 +1,17 @@
+94d55d512a9ba36caa9b7df079bae19f *COPYING
+d4b6b0e7f7026acbb02887a97fcd11e9 *DESCRIPTION
+2ef4a59948143e84dd5d7a7e7ca72471 *NAMESPACE
+ec0c3abb6858582f30a48c304259eb3c *R/all.R
+0ac318f9743508ed18fd88327f02cd61 *README
+557bf3a622c6ce6577a2732b41c77002 *man/kphaz.fit.Rd
+91e4bd3da16e61225a95d69120c07d12 *man/kphaz.plot.Rd
+b149c3a1ee1a15f467a91bec75e51bc0 *man/muhaz.Rd
+5dec63c01f1a6c90cbdc08a004787acb *man/muhaz.object.Rd
+ce91be31b038fec4f089096c0014f00c *man/pehaz.Rd
+dd1b2cd4cc93542c90cc9cabceb74ed8 *man/pehaz.object.Rd
+e791f3129e1a308d7de6a4a981221c6e *man/plot.muhaz.Rd
+29c88b916a64dd9a4eeac397c281edc3 *man/plot.pehaz.Rd
+d282de702275f96fabddb4403abee25e *man/print.pehaz.Rd
+763bd748a418d241622487bcfe247207 *man/summary.muhaz.Rd
+aff3c66f56a22b34d26133c193546c64 *src/init.c
+eb43691a09fee06f86e8450f92cd02d1 *src/muhaz.f
