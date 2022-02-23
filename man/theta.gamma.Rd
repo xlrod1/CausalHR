@@ -2,16 +2,19 @@
 % Please edit documentation in R/theta_gamma.R
 \name{theta.gamma}
 \alias{theta.gamma}
-\title{Title}
+\title{Calculation of frailty variance for the Gamma frailty distribution}
 \usage{
 theta.gamma(tau)
 }
 \arguments{
-\item{tau}{}
+\item{tau}{the wanted tau value}
 }
 \value{
-
+Return the corresponds frailty variance, theta
 }
 \description{
-Title
+This function calculates the frailty variance for any given value of Kendall's tau between [0,1]
+}
+\details{
+The possible values of Kendall's tau under the Gamma distribution are [0,1].
 }

@@ -14,24 +14,20 @@ causal.hazard.frailty.type(
 )
 }
 \arguments{
-\item{frailty.type}{}
+\item{frailty.type}{This function can calculate the causal hazard ratio under two frailty distribution-1=Gamma frailty distribution, 2=Inverse Gaussian distribution. The default value is the Gamma distribution.}
 
-\item{haz1}{}
+\item{haz1}{This is the hazard rate in treatment arm 1 (usually the treatment group)}
 
-\item{haz0}{}
+\item{haz0}{This is the hazard rate in treatment arm 0 (usually the control group)}
 
-\item{cum.haz1}{}
+\item{cum.haz1}{This is the cumulative hazard rate in treatment arm 1 (usually the treatment group)}
 
-\item{cum.haz0}{}
+\item{cum.haz0}{This is the cumulative hazard rate in treatment arm 0 (usually the control group)}
 
-\item{theta}{}
+\item{theta}{This is the frailty variance}
 }
 \value{
-a list with 
-\itemize{
-\item{FOO}{ - BAR}
-\item{FOO2}{ - BAR2}
-}
+The kernel-based causal hzard ratio estimator
 }
 \description{
 This function calculate the causal hazard ratio for the Gamma or the Inverse Gaussian frailty distributions
@@ -40,18 +36,12 @@ This function calculate the causal hazard ratio for the Gamma or the Inverse Gau
 This function calculates the causal hazard ratio given the hazard rate and the cumulative hazard rate for treatment arm 1 and the hazard rate and the cumulative hazard in treatment arm 0.
 The treatment arm 1, will be considered as the "treatment arm" and the treatment arm 0, will be considered as the "control arm".
 The hazard ratio will be calculated as the hazard rate in the treatment arm vs. the hazard rate in the control arm.
-The hazard rates and the cumulative hazards will be substitutes in the following formulas depending on the chosen frailty distributation.
-For the Gamma frailty:
-hr<-(haz1/haz0)*exp(theta*(cum.haz1-cum.haz0))
- For the Inverse Gaussian frailty 
- hr<-(haz1/haz0)*((1+theta*cum.haz1)/(1+theta*cum.haz0))
-Additional technical details, this function calls \code{print} and also \code{\link{plot}}
+The hazard rates and the cumulative hazards will be substitutes in the following formulas depending on the chosen frailty distribution.
+\itemize{
+\item{For the Gamma frailty}{ -hr=(haz1/haz0)*exp(theta*(cum.haz1-cum.haz0))}
+\item{For the Inverse Gaussian frailty }{ -hr=(haz1/haz0)*((1+theta*cum.haz1)/(1+theta*cum.haz0))}
 }
-\examples{
- \dontrun{
- print('hello')
- }
 }
 \references{
-Brill, Barak, Amnon Amir, esting for Differential Abundance in Compositional Counts Data, with Application to Microbiome Studies. arXiv Preprint arXiv:1904.08937.
+"Sensitivity analysis for the causal hazard ratio in randomized and observational studies" by Rachel Axelrod and Daniel Nevo (arXiv link pending)
 }

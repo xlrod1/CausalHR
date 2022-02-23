@@ -9,19 +9,38 @@
 #for more details on the kernel ption see muhaz package help
 #The output is list(muhaz.hr.df=df,end.time=end.time)
 
-#' Title
+#' Calculation of the kernel-based causal hazard ratio
+#' 
+#' 
+#' This function calculate the kernel-based hazard ratio, by estimating first the kernel-based hazard rate and the cumulative hazard function for a given value of frailty variance, theta.
+#' 
+#' @details 
+#'  This function calculate the kernel-based hazard function for each tratment arm using the \code{\link{muhaz}} function. In the presence of confounders such the case of observational studies a weighted version of the hazard rate is calculated. 
+#'  Its impotent to notice that in case of no-confounders three data coloumns needs to be specified: time, status and treatment. The possible values of the treatment needs to be :0,1.
+#'  In case of confounders, a firth column named "W" that contains the observations weights need to be specified. After the calculation of the hazard rate, 
+#'  the comulative hazard is calulated with \code{\link{integrate}} function.
+#'  
+#'  
 #'
-#' @param frailty.type 
-#' @param data 
-#' @param theta 
-#' @param confounder 
-#' @param n.est.grid 
-#' @param b.cor 
-#' @param end.time 
-#' @param min.time 
-#' @param kern 
+#' @param frailty.type This function can calculate the causal hazard ratio under two frailty distribution-1=Gamma frailty distribution, 2=Inverse Gaussian distribution. The default value is the Gamma distribution.
+#' @param data The data that the estimators will be estimated on. In case of RCT, a data with column named "time, treatment, status" needs to be specified. In case of observational studies a firth column named "W" that contains the weights need to be specified also. 
+#' @param theta The frailty variance
+#' @param confounder "no"- for RCT setting, or in case a non-weighted estimator wanted to be calculated. "yes"-for observational studies setting, or in evey other case a weighted estimator need to be calculated.
+#' @param n.est.grid Number of points in the estimation grid, where hazard estimates are computed. Default value is 101.
+#' @param b.cor Boundary correction type. Possible values are: "none" - no boundary correction "left" - left only correction "both" - left and right corrections Default value is "both". Only the first letter needs to be given (e.g. b.cor="n").
+#' @param end.time Right bound of the time domain used in analysis. If missing, max.time is the minumum between the (time at which ten patients remain at risk in the treatment group, time at which ten patients remain at risk in the control group) 
+#' @param min.time  Left bound of the time domain used in analysis. If missing, max.time is the maximum between the (time at which the first event occur treatment group, time at which he first event occur  in the control group) 
+#' @param kern Boundary kernel function to be used. Possible values are: "rectangle", "epanechnikov", "biquadratic", "triquadratic". Default value is "epanechnikov". Only the first letter needs to be given (e.g. kern="b").
 #'
-#' @return
+#'
+#'
+#' @return Returs a data frame with the following columns
+#' \itemize{
+#' \item{time}{ -the estimatiom points}
+#' \item{HR}{ -The kernel-baes causal hazard ratio}
+#' \item{theta}{ -the selected frailty variance, theta}
+#' \item{method}{- This is the estimation always "muhaza" }
+#' }
 #' @export
 #'
 #' @examples
@@ -35,13 +54,13 @@ muhaz_hr_for_real_data_example<-function(frailty.type=1,data,theta, confounder,n
     if(confounder=="yes"){
       sfit <- survfit(Surv(data.treatment$time, data.treatment$status) ~ 1,weights = data.treatment$W)
       #end.treatment <- sfit$time[which.min(abs(sfit$surv-0.2))]
-      end.treatment <- approx(sfit$n.risk, sfit$time, xout = 20)$y
+      end.treatment <- approx(sfit$n.risk, sfit$time, xout = 10)$y
       min.treatment<- sfit$time[min(which(sfit$cumhaz > 0))]
       
       
       sfit <- survfit(Surv(data.control$time, data.control$status) ~ 1,weights = data.control$W)
       #end.control <-  sfit$time[which.min(abs(sfit$surv-0.2))]
-      end.control <- approx(sfit$n.risk, sfit$time, xout = 20)$y
+      end.control <- approx(sfit$n.risk, sfit$time, xout = 10)$y
       min.control<- sfit$time[min(which(sfit$cumhaz > 0))]
       
       
@@ -52,13 +71,13 @@ muhaz_hr_for_real_data_example<-function(frailty.type=1,data,theta, confounder,n
 
       sfit <- survfit(Surv(data.treatment$time, data.treatment$status) ~ 1)
       #end.treatment <- sfit$time[which.min(abs(sfit$surv-0.2))]
-      end.treatment <- approx(sfit$n.risk, sfit$time, xout = 20)$y
+      end.treatment <- approx(sfit$n.risk, sfit$time, xout = 10)$y
       min.treatment<- sfit$time[min(which(sfit$cumhaz > 0))]
       
       
       sfit <- survfit(Surv(data.control$time, data.control$status) ~ 1)
       #end.control <-  sfit$time[which.min(abs(sfit$surv-0.2))]
-      end.control <- approx(sfit$n.risk, sfit$time, xout = 20)$y
+      end.control <- approx(sfit$n.risk, sfit$time, xout = 10)$y
       min.control<- sfit$time[min(which(sfit$cumhaz > 0))]
       
       

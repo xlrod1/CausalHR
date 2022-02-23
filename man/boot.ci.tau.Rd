@@ -2,57 +2,57 @@
 % Please edit documentation in R/boot_ci_real_data.R
 \name{boot.ci.tau}
 \alias{boot.ci.tau}
-\title{Calculation of the causal hazard ratio for different frailty distribution}
+\title{Calculation of the kernel-based and the Cox-based estimators}
 \usage{
 boot.ci.tau(
   data,
   R = 300,
-  frailty.type,
-  confounder,
+  frailty.type = 1,
+  confounder = "no",
   tau,
-  min.time,
+  min.time = 0,
   end.time,
-  n.est.grid,
-  max.HR = 5
+  n.est.grid = 101,
+  kern = "e",
+  b.cor = "b",
+  max.HR = 5,
+  data.tau = NA
 )
 }
 \arguments{
-\item{frailty.type}{}
+\item{data}{The data that the estimators will be estimated on. In case of RCT, a data with column named "time, treatment, status" needs to be specified. In case of observational studies a firth column named "W" that contains the weights need to be specified also.}
 
-\item{haz1}{}
+\item{R}{The number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.Defoult value is 300.}
 
-\item{haz0}{}
+\item{frailty.type}{This function can calculate the causal hazard ratio under two frailty distribution-1=Gamma frailty distribution, 2=Inverse Gaussian distribution. The default value is the Gamma distribution.}
 
-\item{cum.haz1}{}
+\item{confounder}{"no"- for RCT setting, or in case a non-weighted estimator wanted to be calculated. "yes"-for observational studies setting, or in evey other case a weighted estimator need to be calculated. The default option is "no".}
 
-\item{cum.haz0}{}
+\item{tau}{The wanted Kendall's tau. Under the Gamma frailty the possible values of Kendall's tau are [0,1] and under the inverse Gaussian [0,0.5)}
 
-\item{theta}{}
+\item{min.time}{Left bound of the time domain used in analysis. If missing, min.time is considered 0.}
+
+\item{end.time}{Right bound of the time domain used in analysis.}
+
+\item{n.est.grid}{Number of points in the estimation grid, where hazard estimates are computed. Default value is 101.}
+
+\item{kern}{Boundary kernel function to be used. Possible values are: "rectangle", "epanechnikov", "biquadratic", "triquadratic". Default value is "epanechnikov". Only the first letter needs to be given (e.g. kern="b").}
+
+\item{b.cor}{Boundary correction type. Possible values are: "none" - no boundary correction "left" - left only correction "both" - left and right corrections Default value is "both". Only the first letter needs to be given (e.g. b.cor="n").}
+
+\item{max.HR}{a correction factor for the bootstrap results. if the bootstrap result is max.HR times bigger than the dataset result than the result is NA.}
+
+\item{data.tau}{a csv file of the taus file, need to be specified in case a causal hazard ratio under the inverse Gaussian need to be calculated}
 }
 \value{
-a list with 
-\itemize{
-\item{FOO}{ - BAR}
-\item{FOO2}{ - BAR2}
-}
+
 }
 \description{
-This function calculate the causal hazard ratio for the Gamma or the Inverse Gaussian frailty distributions
+Calculation of the kernel-based and the Cox-based estimators for the causal hazard ratio along with standard errors and 95\% pointwise percentile bootstrap CIs
 }
 \details{
-This function calculates the causal hazard ratio given the hazard rate and the cumulative hazard rate for treatment arm 1 and the hazard rate and the cumulative hazard in treatment arm 0.
-The treatment arm 1, will be considered as the "treatment arm" and the treatment arm 0, will be considered as the "control arm".
-The hazard ratio will be calculated as the hazard rate in the treatment arm vs. the hazard rate in the control arm.
-The hazard rates and the cumulative hazards will be substitutes in the following formulas depending on the chosen frilty distributation.
-For the Gamma frailty 
-$$HR=$$
-Additional technical details, this function calls \code{print} and also \code{\link{plot}}
-}
-\examples{
- \dontrun{
- print('hello')
- }
-}
-\references{
-Brill, Barak, Amnon Amir, esting for Differential Abundance in Compositional Counts Data, with Application to Microbiome Studies. arXiv Preprint arXiv:1904.08937.
+This function calculate the kernel-based and the Cox-based estimators for the causal hazard ratio for a given value of tau. This function can be used for RCT ot for observational studies
+ For the observational studies setting, a vector name "w",of the observations' weights needs to pre-specified and need to be of the columns' .
+ The weights are used also in the kernel-based estimator and ahe Cox-based estimator.
+ This function calls \code{\link{boot}} function that estimate the csual hazard ratio in each smple using the function \code{\link{estimation.for.bootsrap.real.data}} to preform bootstrap sampling. Then it calculates the empirical standard errors and the 95\% pointwise CIs by the percentile method.
 }
