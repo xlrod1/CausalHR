@@ -31,7 +31,7 @@
 #' @return Returns dataframe containing the following columns:time=the estimation grid points, HR=the kernel-based estimator, HR.sp=the Cox-based estimator , "tau"=the selected tau value 
 #' 
 
-data.by.tau<-function(tau,data,frailty.type,confounder,n.est.grid=101,b.cor,end.time,min.time=0,kern,data.tau=NA){
+CausalHR.without.bootstrap<-function(tau,data,frailty.type,confounder,n.est.grid=101,b.cor,end.time,min.time=0,kern,data.tau=NA){
   if (frailty.type==1){
     theta01<-theta.gamma(tau=tau)
   }

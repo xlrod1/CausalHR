@@ -34,7 +34,7 @@
 #' @export
 #' "Sensitivity analysis for the causal hazard ratio in randomized and observational studies" by Rachel Axelrod and Daniel Nevo (arXiv link pending)
 #' @examples
-boot.ci.tau<-function(data,R=300,frailty.type=1,confounder="no",tau,min.time=0,end.time,n.est.grid=101,kern="e",b.cor="b",max.HR=5,data.tau=NA){
+CausalHR.with.bootstrap<-function(data,R=300,frailty.type=1,confounder="no",tau,min.time=0,end.time,n.est.grid=101,kern="e",b.cor="b",max.HR=5,data.tau=NA){
 
   
   results<- boot(data=data, statistic=estimation.for.bootsrap.real.data,R=R, 
