@@ -19,7 +19,7 @@ There is two main function in this package that one should use when analysing re
 2. CausalHR.without.bootstrap-Returns the kernel-based and the Cox-based Causal hazard ratio estimators.
 
 ## Where can I read more?
-"Sensitivity analysis for the causal hazard ratio in randomized and observational studies" by Rachel Axelrod and Daniel Nevo (arXiv link pending).
+"A Sensitivity analysis approach for the causal hazard ratio in randomized and observational studies" by Rachel Axelrod and Daniel Nevo (arXiv link pending).
 
 ## Reproducing paper results
 A github repository for reproducing paper results paper is found [here](https://github.com/xlrod1/Reproducability_R_code).

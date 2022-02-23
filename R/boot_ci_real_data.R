@@ -32,7 +32,7 @@
 #' }
 #'
 #' @export
-#' "Sensitivity analysis for the causal hazard ratio in randomized and observational studies" by Rachel Axelrod and Daniel Nevo (arXiv link pending)
+#' "A Sensitivity analysis approach for the causal hazard ratio in randomized and observational studies" (arXiv link pending)
 #' @examples
 CausalHR.with.bootstrap<-function(data,R=300,frailty.type=1,confounder="no",tau,min.time=0,end.time,n.est.grid=101,kern="e",b.cor="b",max.HR=5,data.tau=NA){
 
